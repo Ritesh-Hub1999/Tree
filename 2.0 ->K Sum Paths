@@ -1,0 +1,57 @@
+https://practice.geeksforgeeks.org/problems/k-sum-paths/0
+Example 1:
+
+Input:      
+Tree = 
+          1                               
+        /   \                          
+       2     3
+K = 3
+Output: 2
+Explanation:
+Path 1 : 1 + 2 = 3
+Path 2 : only leaf node 3
+
+Approch:
+--------
+Har path ka sum nikalenga and sum ko compare karenga k sa.
+
+Vector mai traverse krka uska sum nikalna hai and compare
+karna hai k sa.
+if k sa equal agaya count increase kar dena hai
+
+yaha pe hum back track krna hoga means jo array mai element
+aya tha usko wapas jata hua nikalna bhi hoga
+
+code:
+-----
+void solve(Node *root,int k,int &count,vector<int> v){
+        if(root==NULL){
+            return;
+        }
+        v.push_back(root->data);
+        
+        //left traverse krna h
+        solve(root->left,k,count,v);
+        //right traverse
+        solve(root->right,k,count,v);
+        
+        int sum=0;
+        int size=v.size();
+        
+        for(int i=size-1;i>=0;i--){
+            sum=sum+v[i];
+            if(k==sum){
+                count++;
+            }
+        }
+        
+        v.pop_back();
+    }
+    int sumK(Node *root,int k)
+    {
+        int count=0;
+        vector<int> v;
+        solve(root,k,count,v);
+        return count;
+    }
