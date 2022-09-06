@@ -27,8 +27,9 @@ Output:
 Explanation:
 K=1 and node=3 ,Kth ancestor of node 3 is 1.
 
-Approch:
--------
+ Approch:
+ -------
+ 
  
  code:
  ----
