@@ -1,0 +1,34 @@
+Approch:
+--------
+p = 5, q=4
+step1-> Null ka case mai null return karenga
+step2-> root node check karange p or q
+step3-> if equal nai aya tho left and right ka
+        lia call jaiga
+
+code:
+----
+ TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(root == NULL)
+            return NULL;
+        
+        if(root->val == p || root->val == q)
+            return root;
+        
+        //left part ka lia call jaiga
+        
+        TreeNode* leftAns = lowestCommonAncestor(root->left,p,q);
+        
+        //right part ka lia call jaiga
+        
+        TreeNode* rightAns = lowestCommonAncestor(root->right,p,q);
+        
+        if(leftAns!=NULL && rightAns!=NULL)
+            return root;
+        
+        else if(leftAns == NULL && rightAns!=NULL)
+            return rightAns;
+        
+        else if(leftAns != NULL && rightAns == NULL)
+            return leftAns;
+    }
