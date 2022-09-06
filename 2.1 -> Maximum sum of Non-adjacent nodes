@@ -1,0 +1,71 @@
+https://practice.geeksforgeeks.org/problems/maximum-sum-of-non-adjacent-nodes/1
+
+Example 1:
+---------
+Input:
+     11
+    /  \
+   1    2
+Output: 11
+Explanation: The maximum sum is sum of
+node 11.
+
+Example 2:
+----------
+Input:
+        1
+      /   \
+     2     3
+    /     /  \
+   4     5    6
+Output: 16
+Explanation: The maximum sum is sum of
+nodes 1 4 5 6 , i.e 16. These nodes are
+non adjacent.
+
+//agr ek node include kar di usa connected node 
+  implement nai kr skata
+  
+Approch:
+--------
+pair<int,int>
+      |   |
+   first  Second
+   
+first -> maximum sum including all nodes at curr level.
+    ex: mai 1 ko include kia tho 2 ko exclude karna hoga.
+        so hama pair mai sa second value uthani hoti hai
+        left and right sa.
+        
+Second -> Hama 1 ko exclude karna hai. 
+    ex: 2nd lvl mai 4 data hai
+    
+Code:
+-----
+pair<int,int> solve(Node* root){
+        if(root==NULL){
+            return make_pair(0,0);
+        }
+        
+        //left part traverse krna h
+        pair<int,int> left=solve(root->left);
+        //right part traverse krna h
+        pair<int,int> right=solve(root->right);
+        
+        pair<int,int> res;
+        
+        //maximum sum including all nodes
+        res.first=root->data+left.second+right.second;
+        
+        //excluding 
+        res.second=max(left.first,left.second) + max(right.first,right.second);
+        
+        return res;
+        
+    }
+    int getMaxSum(Node *root) 
+    {
+        pair<int,int> ans=solve(root);
+        
+        return max(ans.first,ans.second);
+    }
