@@ -1,0 +1,31 @@
+Approch:
+------
+step 1-> diameter can exist in left
+step 2-> diameter can exist in right
+step 3-> diameter include rootpart
+
+code:
+----
+int height(Node* root){
+  if(root == NULL)
+    return 0;
+  
+  if(root->left == NULL && root->right == NULL)
+    return 0;
+    
+  int left = height(root->left);
+  int right = height(root->right);
+  
+  return 1+max(left,right);
+}
+
+int diamtereOfbinarytree(Node* root){
+  if(root==NULL)
+    return 0;
+  
+  int leftpart = diamtereOfbinarytree(root->left);
+  int rightpart = diamtereOfbinarytree(root->right);
+  int rootpart = 1+height(root->left)+height(root->right);
+  
+  return max(leftpart,max(rightpart,rootpart);
+}
