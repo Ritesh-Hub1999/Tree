@@ -53,3 +53,11 @@ Explanation:
     // old_value of this node
     return Node->data + old_val;
 }
+void printInorder(node* Node)
+{
+    if (Node == NULL)
+        return;
+    printInorder(Node->left);
+    cout<<" "<<Node->data;
+    printInorder(Node->right);
+}
