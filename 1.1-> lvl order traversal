@@ -1,0 +1,39 @@
+Approch:
+-------
+step 1 -> starting root ko dalo and null bhi dalo
+          queue mai
+step 2->jab tak queue empty nai hoti top element ko
+        pakro and uska q sa nikalo
+        
+step 3-> and uska bacha chor jao/daal do queue mai
+
+code
+----
+void lvlOrder(Node *root){
+  queue<Node*> q;
+  q.push(root);
+  q.push(NULL);
+  
+  while(!q.empty()){
+    //tu nikal
+    Node * front = q.top();
+    q.pop();
+    if(front==NULL){
+      cout <<endl;
+      //baki lvl ka lia bhi null push krna hai
+      if(!q.empty()){
+        q.push(NULL);
+      }
+    }
+    
+    else{
+      cout<<front->data <<endl;
+      
+      if(front->left !=NULL)
+        q.push(front->left);
+        
+      if(front->right !=NULL)
+        q.push(front->right);
+    }
+  }
+}
