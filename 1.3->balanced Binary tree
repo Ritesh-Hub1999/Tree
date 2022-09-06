@@ -3,6 +3,19 @@ hona cahiya.
 
 :abs(lh-rh)<=1
 
+Algo:
+-----
+B.C : agr root NULL hai return false
+---
+
+step1-> left balance hai ya nai wo check krna hai
+step2-> right balance hai ya nai wo check krna hai
+step3-> Ab diff check karna hai left or right ka
+        height <=  1 ho
+        
+step4 -> agr 3 condition satisfy ho return true.
+
+
 code:
 -----                 
 int height(treeNode *root){
