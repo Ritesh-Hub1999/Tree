@@ -1,0 +1,55 @@
+Example 1:
+
+Input:
+             10
+          /      \
+        -2        6
+       /   \     /  \
+     8     -4   7    5
+
+Output:
+            20
+          /    \
+        4        12
+       /  \     /  \
+     0     0   0    0
+
+Explanation:
+
+           (4-2+12+6)
+          /           \
+      (8-4)          (7+5)
+       /   \         /  \
+      0     0       0    0
+      
+ 
+ Approch:
+ --------
+ Do a traversal of the given tree. In the traversal,
+ store the old value of the current node, recursively 
+ call for left and right subtrees and change the value
+ of current node as sum of the values returned by the 
+ recursive calls. Finally return the sum of new value 
+ and value (which is sum of values in the subtree rooted with this node). 
+ 
+ Code:
+ -----
+ int toSumTree(node *Node)
+{
+    // Base case
+    if(Node == NULL)
+    return 0;
+ 
+    // Store the old value
+    int previousVal = Node->data;
+ 
+    // Recursively call for left and
+    // right subtrees and store the sum as
+    // old value of this node
+    Node->data = toSumTree(Node->left) + toSumTree(Node->right);
+ 
+    // Return the sum of values of nodes
+    // in left and right subtrees and
+    // old_value of this node
+    return Node->data + old_val;
+}
