@@ -1,0 +1,38 @@
+class Node{
+  int data;
+  Node *left;
+  Node *right;
+  
+  Node(int d){
+    data = d;
+    left = NULL;
+    right = NULL:
+  }
+};
+
+Node* BuildTree(){
+  cout>>"Enter the data"<<endl;
+  int data;
+  cin>>data;
+  
+  if(data == -1){
+    return NULL;
+  }
+  
+  Node* newNode = new Node(data);
+  
+  //enter the data for left child
+  //to create a left node
+  newNode->left = BuildTree();
+ 
+ //enter the data for right child
+ //to create a right node
+ newNode->right = BuildTree();
+ 
+ return newNode;
+}
+
+int Main(){
+  Node *root = NULL;
+  root = BuildTree();
+}
