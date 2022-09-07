@@ -1,0 +1,81 @@
+https://practice.geeksforgeeks.org/problems/construct-tree-1/1
+
+Example:
+-------
+Input:
+N = 6
+inorder[] = {3 1 4 0 5 2}
+preorder[] = {0 1 3 4 2 5}
+Output: 3 4 1 5 2 0
+Explanation: The tree will look like
+       0
+    /     \
+   1       2
+ /   \    /
+3    4   5
+
+Approch:
+-------
+-> Take index at root element in preorder
+-> find root element position in inorder
+-> root ka left ka lia recursion call
+  Inorder ki starting index sa leka pos-1 tak.
+-> Root ka right ka lia recursion call karna
+  Inorder ki pos+1 index sa leka Inorder ki last
+  index tak.
+  
+  code:
+  -----
+  /*int findPos(int in[],int ele,int end){
+        for(int i=0;i<end;i++){
+            if(in[i]==ele){
+                return i;
+            }
+        }
+        return -1;
+        
+    }*/
+    
+    void createMap(int in[],map<int,int>&nodeToIndex,int n){
+        for(int i=0;i<n;i++){
+            nodeToIndex[in[i]]=i;
+        }
+    }
+    
+    Node* solve(int in[],int pre[], int &preOrderIndex,int inOrderStartIndex,
+                int inOrderEndingIndex,int n,map<int,int>&nodeToIndex){
+        //base case
+        if(preOrderIndex == n){
+            return NULL;
+        }
+        
+        if(inOrderStartIndex>inOrderEndingIndex){
+            return NULL;
+        }
+        
+        // yaha pe hum preorder ka first element ko root node bana raha h.
+        int ele=pre[preOrderIndex++];
+        Node* root=new Node(ele);
+        
+        //ab position find krna h hama inorder mai
+        //int pos=findPos(in,ele,n);
+        int pos=nodeToIndex[ele];
+        //root ka left ka lia recursive call
+        
+        root->left=solve(in,pre,preOrderIndex,inOrderStartIndex,pos-1,n,nodeToIndex);
+        
+        //root ka right ka lia recursice call
+        root->right=solve(in,pre,preOrderIndex,pos+1,inOrderEndingIndex,n,nodeToIndex);
+        
+        return root;
+    }
+    Node* buildTree(int in[],int pre[], int n)
+    {
+        int preOrderIndex=0;
+        
+        map<int,int>nodeToIndex;
+        createMap(in,nodeToIndex,n);
+        Node* root= solve(in,pre,preOrderIndex,0,n-1,n,nodeToIndex);
+        
+        return root;
+    }
