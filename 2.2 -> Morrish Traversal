@@ -1,0 +1,32 @@
+Algo:
+----
+-> Left Part Print krna hai:- Check karenga left part 
+   -------------------------
+Null hai agr NULL print kardenga.
+                      &
+Curr ko curr ka right mai bhej denga.
+
+Link creation: agr left null predecessor nikalna hai
+--------------
+curr ka. 
+Predecessor: step 1-> curr ka left mai jao
+-----------
+             step 2-> jab tak right child NULL nai hai
+             tab taak curr right mai jata raho.
+             
+Pre check karenga predecssor ka right null hai.
+                 &&
+Predcessor ka right != Curr hai
+
+Predcessor ka right ko curr ka sath link kr denga
+                  &
+curr ko curr ka left mai bhej denga.
+
+LINk break:
+---------
+else part:
+      agr upr ka condition true nai hua tho
+      predecesor ka right NULL karenga & curr
+      ka data print karnega (or) curr ko right 
+      mai move kardenga
+      
