@@ -1,0 +1,76 @@
+https://practice.geeksforgeeks.org/problems/tree-from-postorder-and-inorder/1
+Input:
+------
+N = 8
+in[] = 4 8 2 5 1 6 3 7
+post[] =8 4 5 2 6 7 3 1
+Output: 1 2 4 8 5 3 6 7
+Explanation: For the given postorder and
+inorder traversal of tree the  resultant
+binary tree will be
+           1
+       /      \
+     2         3
+   /  \      /  \
+  4    5    6    7
+   \
+     8
+
+approch:
+-------
+post order ka end sa start karenga right ki
+call pehla aigi
+
+code:
+-----
+int findIndex(int in[],int ele,int n){
+    for(int i=0;i<n;i++){
+        if(in[i]==ele){
+            return i;
+        }
+    }
+}*/
+
+void createMap(int in[],map<int,int>& nodeToIndex,int n){
+    for(int i=0;i<n;i++){
+        nodeToIndex[in[i]]=i;
+    }
+}
+
+Node* solve(int in[], int post[],int &postIndex,int inOrderStartingIndex,
+            int inOrderEndingIndex,int n,map<int,int>& nodeToIndex){
+        //basecase
+        if(postIndex<0){
+            return NULL;
+        }
+        
+        if(inOrderStartingIndex > inOrderEndingIndex){
+            return NULL;
+        }
+            
+        //create a node for ending element in postorderIndex;
+        int ele=post[postIndex--];
+        Node* root=new Node(ele);
+        
+        //pos find index of the ele
+        //int pos=findIndex(in,ele,n);
+        int pos=nodeToIndex[ele];
+        
+        //right part create krna h wo recursion kr lega
+        root->right=solve(in,post,postIndex,pos+1,inOrderEndingIndex,n,nodeToIndex);
+        
+        //left part create krna h wo recursion kr lega
+        root->left=solve(in,post,postIndex,inOrderStartingIndex,pos-1,n,nodeToIndex);
+        
+        return root;
+    }
+Node *buildTree(int in[], int post[], int n) {
+    
+    int postIndex=n-1;
+    map<int,int> nodeToIndex;
+    createMap(in,nodeToIndex,n);
+    Node* ans=solve(in,post,postIndex,0,n-1,n,nodeToIndex);
+    
+    return ans;
+    
+}
