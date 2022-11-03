@@ -1,34 +1,51 @@
 Approch:
 --------
 p = 5, q=4
-step1-> Null ka case mai null return karenga
-step2-> root node check karange p or q
-step3-> if equal nai aya tho left and right ka
-        lia call jaiga
-
+step1 -> check karta jainga p ya q sa value match ho rha hai
+step2 -> agr ho rha hai tho root return kar denga
+step3 ->//4case banega
+        //case1: agr left and right sa null aai tho return null
+        //case2 : agr left sa null aya right sa null nai aya return right
+        //case3 : agr left sa null na aai and right sa null aaai tho return left
+        //case4 : agr dono side sa null nai aya tho mtln uska parent root hi hai
+     
+        
 code:
 ----
  TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if(root == NULL)
+        //basecase
+        if(root==NULL){
             return NULL;
-        
-        if(root->val == p || root->val == q)
+        }
+
+        if(root->val == p->val or root->val == q->val){
             return root;
-        
-        //left part ka lia call jaiga
-        
-        TreeNode* leftAns = lowestCommonAncestor(root->left,p,q);
-        
-        //right part ka lia call jaiga
-        
+        }
+
+        TreeNode* leftAns= lowestCommonAncestor(root->left,p,q);
         TreeNode* rightAns = lowestCommonAncestor(root->right,p,q);
-        
-        if(leftAns!=NULL && rightAns!=NULL)
-            return root;
-        
-        else if(leftAns == NULL && rightAns!=NULL)
-            return rightAns;
-        
-        else if(leftAns != NULL && rightAns == NULL)
+
+        //4case banega
+        //case1: agr left and right sa null aai tho return null
+        if(leftAns == NULL and rightAns == NULL){
+            return NULL;
+        }
+
+        //case2 : agr left sa null aya right sa null nai aya return right
+        if(leftAns !=NULL and rightAns == NULL){
             return leftAns;
+        }
+        
+        //case3 : agr left sa null na aai and right sa null aaai tho return left
+        if(leftAns == NULL and rightAns != NULL){
+            return rightAns;
+        }
+
+        //case4 : agr dono side sa null nai aya tho mtln uska parent root hi hai
+        // if(leftAns != NULL and rightAns != NULL){
+        //     return root;
+        // }
+        else{
+            return root;
+        }
     }
