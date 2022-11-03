@@ -1,0 +1,89 @@
+https://practice.geeksforgeeks.org/problems/sum-tree/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+
+Example 1:
+---------
+Input:
+    3
+  /   \    
+ 1     2
+
+Output: 1
+Explanation:
+The sum of left subtree and right subtree is
+1 + 2 = 3, which is the value of the root node.
+Therefore,the given binary tree is a sum tree.
+
+Example 2:
+----------
+Input:
+
+          10
+        /    \
+      20      30
+    /   \ 
+   10    10
+
+Output: 0
+Explanation:
+The given tree is not a sum tree.
+For the root node, sum of elements
+in left subtree is 40 and sum of elements
+in right subtree is 30. Root element = 10
+which is not equal to 30+40.
+
+Approch:
+-------
+hum yaha true and sum. so isa hum store kara lenga 2 form mai bool,int
+
+pair<bool,int>
+
+-> cehck left part 
+-> check right part
+->cehck currNode equal hai left and right sum ka
+//3 condition agai hai ab store karna hai ans mai
+-> agr 3 condition true hua hai tho yeah 3 honga condition
+if(leftCheck == true and rightCheck == true and sumCheck == true){
+            ans.first = true;
+            ans.second = root->data + left.second + right.second;
+ }
+ 
+ code:
+ ----
+ pair<bool,int> checkSumTree(Node* root){
+        
+        if(root == NULL){
+            return make_pair(true,0);
+        }
+        
+        //leaf node check nai karni hai question mai given hai
+        if(root->left == NULL and root->right == NULL){
+            return make_pair(true,root->data);
+        }
+        
+        //cehck left part 
+        pair<bool,int> left = checkSumTree(root->left);
+        //check right part
+        pair<bool,int> right = checkSumTree(root->right);
+        
+        bool leftCheck = left.first;
+        bool rightCheck = right.first;
+        //cehck currNode equal hai left and right sum sa
+        bool sumCheck = root->data == left.second + right.second;
+        
+        //3 condition agai hai ab store karna hai ans mai
+        pair<bool,int> ans;
+        
+        if(leftCheck == true and rightCheck == true and sumCheck == true){
+            ans.first = true;
+            ans.second = root->data + left.second + right.second;
+        }
+        else{
+            ans.first == false;
+        }
+        
+        return ans;
+    }
+    bool isSumTree(Node* root)
+    {
+         return checkSumTree(root).first;
+    }
