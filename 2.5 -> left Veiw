@@ -1,0 +1,39 @@
+https://practice.geeksforgeeks.org/problems/left-view-of-binary-tree/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+
+Approch:
+---------
+Hum bs har ek level pa jainga tho data push kar denga.
+
+preorder traversal use karenga
+
+Means agr level/row size vector ka equal hona cahiya.
+
+-> 0 level pe hai vector ka size zero hona cahiya
+-> 1 level pe hai vector ka size 1 hona cahiya
+
+Tb push karenga data
+
+Phr normal recursive call left and right ka lia
+
+Code:
+-----
+void solve(Node *root,vector<int> &ans,int row,int col){
+    if(root == NULL){
+        return;
+    }
+    
+    if(row == ans.size()){
+        ans.push_back(root->data);
+    }
+    
+    solve(root->left,ans,row+1,col-1);
+    solve(root->right,ans,row+1,col+1);
+    
+    
+}
+vector<int> leftView(Node *root)
+{
+   vector<int> ans;
+   solve(root,ans,0,0);
+   return ans;
+}
