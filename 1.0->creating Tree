@@ -1,38 +1,72 @@
-class Node{
+#include <iostream>
+#include <queue>
+using namespace std;
+
+class node{
+public:
   int data;
-  Node *left;
-  Node *right;
-  
-  Node(int d){
-    data = d;
+  node* left;
+  node* right;
+
+  node(int data){
+    this->data = data;
     left = NULL;
-    right = NULL:
+    right = NULL;
   }
 };
-
-Node* BuildTree(){
-  cout>>"Enter the data"<<endl;
+node* buildTree(node* root){
+  cout<< " enter a data"<<endl;
   int data;
-  cin>>data;
-  
+  cin>> data;
+  root = new node(data);
+
   if(data == -1){
     return NULL;
   }
-  
-  Node* newNode = new Node(data);
-  
-  //enter the data for left child
-  //to create a left node
-  newNode->left = BuildTree();
- 
- //enter the data for right child
- //to create a right node
- newNode->right = BuildTree();
- 
- return newNode;
+
+  cout<<"enter data in left of:"<<data<<endl;
+  root->left = buildTree(root->left);
+
+  cout<<"enter data in right of:"<<data<<endl;
+  root->right = buildTree(root->right);
+
+  return root;
 }
 
-int Main(){
-  Node *root = NULL;
-  root = BuildTree();
+void lvlOrderTraversal(node* root){
+  //bfs use karenga
+  queue<node*> q;
+  q.push(root);
+  q.push(NULL);
+
+  while(!q.empty()){
+    int q_size = q.size();
+    while(q_size != 0){
+      node* front = q.front();
+      q.pop();
+      if(front == NULL){
+        cout<< endl;
+        if(!q.empty()){
+          q.push(NULL);
+        }
+      }
+      else{
+        cout<<front->data<<" ";
+        if(front->left != NULL){
+          q.push(front->left);
+        }
+
+        if(front->right != NULL){
+          q.push(front->right);
+        }
+      }
+      q_size--;
+    }
+  }
+}
+int main(){
+  node* root = NULL;
+  
+  root = buildTree(root);
+  lvlOrderTraversal(root);
 }
