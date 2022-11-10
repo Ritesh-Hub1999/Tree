@@ -1,0 +1,49 @@
+https://leetcode.com/problems/path-sum-iii/description/
+
+Input: root = [10,5,-3,3,2,null,11,3,-2,null,1], targetSum = 8
+Output: 3
+Explanation: The paths that sum to 8 are shown.
+
+Approch:
+Vector banainga usma leaf node taak path dalenga. Phr us vector sa sum nikalenga picha sa and target sa compare karenga
+
+Step 1: node ka data ko push karo vector mai
+
+Step 2: left and right ka lia call maro
+
+Step 3: sum nikalo picha sa traverse karka array ka
+
+Step 3.1: us sum ko compare kro target sum sa and count bardhaoo
+
+Step 4: wapas ata hua back track akro
+
+Code:
+----
+void solve(TreeNode* root, int targetSum,vector<int> &path,int &count){
+        if(root == NULL){
+            return;
+        }
+
+        //nodes ko vector mai dalta jao
+        path.push_back(root->val);
+
+        solve(root->left,targetSum,path,count);
+        solve(root->right,targetSum,path,count);
+
+        long long int sum = 0;
+        for(int i=path.size()-1;i >= 0 ;i--){
+            sum = sum + path[i];
+            if(sum == targetSum){
+                count++;
+            }
+        }
+
+        path.pop_back();
+        
+    }
+    int pathSum(TreeNode* root, int targetSum) {
+        vector<int> path;
+        int count = 0;
+        solve(root,targetSum,path,count);
+        return count;
+    }
