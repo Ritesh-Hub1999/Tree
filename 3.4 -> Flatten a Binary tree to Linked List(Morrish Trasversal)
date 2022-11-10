@@ -1,0 +1,43 @@
+
+//step 1: root node ko pehla curr mark kar do
+
+//step 2:  jab tak curr null nai hota process karo
+
+//step3: predecessor find karo
+
+//step4: pred ka right ko curr node ka right mai laga do
+
+//step5 : curr node ka right ko curr node ke left mai point kara do
+
+
+//step6 : curr node ka left ko null mark kar do
+
+//step7 :curr ko aga bardha do
+
+Code:
+-----
+void flatten(TreeNode* root) {
+        //step 1: root node ko pehla curr mark kar do
+        TreeNode* curr = root;
+
+        //step 2: 
+        while(curr != NULL){
+            
+            if(curr->left != NULL){
+                //step3: predecessor find karo
+               TreeNode* pred = curr->left;
+               while(pred->right != NULL){
+                   pred = pred->right;
+                } 
+
+                //step4: pred ka right ko curr node ka right mai laga do
+                pred->right = curr->right;
+                //step5 : curr node ka right ko curr node ke left mai point kara do
+                curr->right = curr->left;
+                //step6 : curr node ka left ko null mark kar do
+                curr->left = NULL;
+            }
+            //step7 :curr ko aga bardha do
+            curr = curr->right;
+        }
+    }
