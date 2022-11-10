@@ -1,0 +1,44 @@
+https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/description/
+
+Approch:
+-------
+Approch:
+Waha vertially dekhna print karana hai
+
+                        (r,c)
+           (r+1,c-1)      (r+1,c+1)
+
+Map ka key mai vertical/col store karenga
+
+Map ka value mai vector/list store karenga usma pair ka form mai hoga
+(first(level/row),second(node->data))
+
+map<vertical/col,vector<pair<level/row,node->data>>>
+
+Code:
+-----
+void preOrdered(TreeNode* root,map<int,vector<pair<int,int>>> &mp,int row,int col){
+        if(root == NULL){
+            return;
+        }
+        mp[col].push_back(make_pair(row,root->val));
+        preOrdered(root->left,mp,row+1,col-1);
+        preOrdered(root->right,mp,row+1,col+1);
+    }
+    vector<vector<int>> verticalTraversal(TreeNode* root) {
+        vector<vector<int>> ans;
+        map<int,vector<pair<int,int>>> mp;
+        preOrdered(root,mp,0,0);
+
+        for(auto x:mp){
+            vector<int> outPut;
+            sort(x.second.begin(),x.second.end());
+            for(auto pair: x.second){
+                outPut.push_back(pair.second);
+            }
+            ans.push_back(outPut);
+        }
+        
+
+        return ans;
+    }
