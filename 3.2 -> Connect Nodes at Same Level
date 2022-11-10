@@ -1,0 +1,64 @@
+struct Node {
+  int val;
+  Node *left;
+  Node *right;
+  Node *next;
+}
+
+Approch:
+
+We gonna use here LVL order traversal
+Means we using BFS
+
+Node* firstt
+
+Step 1: if queue ka size 1 sa zyda hai tho un 
+        dono node ko nikal kar first node ko 
+        second node mai point kr do
+
+Step 2: if queue ka size one hoga tho normal uska
+        child queue mai push kar denga
+        
+Code:
+----
+Node* connect(Node* root) {
+        if(root == NULL){
+            return NULL;
+        }
+
+        //yaha hum level order traversal karenga
+        //so hama uska lia queue cahiya hoga
+
+        queue<Node*> q;
+        q.push(root);
+
+        while(!q.empty()){
+            int q_size = q.size();
+
+            while(q_size != 0){
+                Node* first;
+                if(q_size > 1){
+                    first = q.front();
+                    q.pop();
+
+                    Node* second = q.front();
+
+                    first->next = second;
+                }
+                else{
+                    first = q.front();
+                    q.pop();
+                }
+
+                if(first->left != NULL){
+                    q.push(first->left);
+                }
+                if(first->right != NULL){
+                    q.push(first->right);
+                }
+                q_size--;
+            }
+        }
+
+        return root;
+    }   
