@@ -1,0 +1,81 @@
+Approch:
+-------
+Step1: if(root->val == key){
+->0 child ka node ko delete karo
+->1 child ho
+//left child ho jiski
+//right child ho jiski
+->2 child ho
+//root ka right side sa minimum find karka leka aao
+
+//ab jis root node ko delete karna hai usma mai minVal ko copy kr do
+
+//ab delete karo right sa value leka aai tha joo
+
+Step2 : if(root->val > key)
+//left ka lia call mar lo
+
+Step3 : if(root->val < key)
+//right ka lia call mar lo
+}
+
+Code:
+----
+TreeNode* findMiniVal(TreeNode* root){
+        TreeNode* temp = root;
+        while(temp->left != NULL){
+            temp = temp->left;
+        }
+
+        return temp;
+    }
+
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        //base case
+        if(root == NULL){
+            return NULL;
+        }
+
+        if(root->val == key){
+            //node delete karo jiska 0 child ho
+            if(root->left == NULL and root->right == NULL){
+                delete root;
+                return NULL;
+            }
+
+            //node delete karo jiska 1 child ho
+            //left child hai node ka
+            if(root->left != NULL and root->right == NULL){
+                TreeNode* temp = root->left;
+                delete root;
+                return temp;
+            }
+
+            //right child hai node ka
+            if(root->left == NULL and root->right != NULL){
+                TreeNode* temp = root->right;
+                delete root;
+                return temp;
+            }
+
+            //node delete karo jiska 2 child ho
+            if(root->left != NULL and root->right != NULL){
+                //root ka right side sa minimum find karka leka aao
+                int minVal = findMiniVal(root->right)->val;
+                //ab jis root node ko delete karna hai usma mai minVal ko copy kr do
+                root->val = minVal;
+                //ab delete karo right sa value leka aai tha joo
+                root->right = deleteNode(root->right,minVal);
+                return root;
+            }
+        }
+
+        else if(root->val > key){
+            root->left = deleteNode(root->left,key);
+            return root;
+        }
+        else{
+            root->right = deleteNode(root->right,key);
+            return root;
+        }
+    }
