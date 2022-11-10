@@ -1,0 +1,49 @@
+https://practice.geeksforgeeks.org/problems/binary-tree-to-dll/1
+
+Apprcoh:
+
+Step1:
+Yaha hum normal inorder traversal karenga
+
+Step2:
+If(prev==NULL)
+Jaisa left ka end node mai phucha usma prev and head pointer ko mark kar do
+
+Step3:
+Else{
+            prev->right = root;
+            prev->right->left = prev;
+            prev = prev->right;
+}
+
+
+Code:
+-----
+void convertToDLL(Node *root,Node* &prev,Node* &head){
+        if(root == NULL){
+            return;
+        }
+        
+        convertToDLL(root->left,prev,head);
+        
+        if(prev == NULL){
+            head = root;
+            prev = root;
+        }
+        
+        else{
+            prev->right = root;
+            prev->right->left = prev;
+            prev = prev->right;
+        }
+        
+        convertToDLL(root->right,prev,head);
+    }
+    
+    Node * bToDLL(Node *root)
+    {
+        Node* prev = NULL;
+        Node* head = NULL;
+        convertToDLL(root,prev,head);
+        return head;
+    }
