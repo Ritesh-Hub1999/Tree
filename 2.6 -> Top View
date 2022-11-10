@@ -1,0 +1,61 @@
+https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbURyYjJNYU9ZQlgtczEzTzdDbVJQUVdELUYtQXxBQ3Jtc0ttOFVXMDlvV3JDQmlCelFockFCLVhSTW5Jd0ZycnljOTRhaGJVU2lMZW5QZy1KS2RJOVp0NVlyMVQyTFlISHR1Qm9rY3l6VTVZSTM1NmVaV2VRamlTSW5xNHBNOEJFT2x6NzJVeEJ0MC1KdHI0bzVSYw&q=https%3A%2F%2Fpractice.geeksforgeeks.org%2Fproblems%2Ftop-view-of-binary-tree%2F1%2F&v=s1d8UGDCCN8
+
+Approch:
+----------
+Yaha hum BFS khelenga
+
+BFS mai queue cahiya hota hai
+Queue mai 2 chiz store karenga
+Ek node, vertical_order
+Queue<node*,verticalOrder>
+
+Yaha vetical/col ka hisaba sa data store hoga MAP mai
+Ex: map<vetical,node->data>
+
+Code:
+-----
+vector<int> topView(Node *root)
+    {
+        vector<int> ans;
+        if(root == NULL){
+            return ans;
+        }
+        map<int,int> verticalandTopNodeData;
+        
+        //hum log yaha bfs hus karenga
+        //so bfs mai queue use karta hai
+        queue<pair<Node*,int>> q;
+        q.push(make_pair(root,0));
+        
+        while(!q.empty()){
+            int q_size = q.size();
+            
+            while(q_size !=0){
+                pair<Node*,int> front = q.front();
+                q.pop();
+                
+                Node* node = front.first;
+                int vertical = front.second;
+                
+                if(verticalandTopNodeData.find(vertical) == verticalandTopNodeData.end()){
+                    verticalandTopNodeData[vertical] = node->data;
+                }
+                
+                if(node->left != NULL){
+                    q.push(make_pair(node->left,vertical-1));
+                }
+                
+                if(node->right != NULL){
+                    q.push(make_pair(node->right,vertical+1));
+                }
+                q_size--;
+            }
+        }
+        
+        for(auto x: verticalandTopNodeData){
+            ans.push_back(x.second);
+        }
+        
+        return ans;
+        
+    }
