@@ -17,23 +17,27 @@ Phr normal recursive call left and right ka lia
 
 Code:
 -----
-void solve(Node *root,vector<int> &ans,int row,int col){
-    if(root == NULL){
+void solve(Node *root,int lvl,vector<int> &ans)
+{
+    if(root==NULL){
         return;
     }
     
-    if(row == ans.size()){
+    // you entered to a new level
+    if(lvl==ans.size()){
         ans.push_back(root->data);
     }
     
-    solve(root->left,ans,row+1,col-1);
-    solve(root->right,ans,row+1,col+1);
+    //left part
+    solve(root->left,lvl+1,ans);
+    
+    //right part
+    solve(root->right,lvl+1,ans);
     
     
 }
-vector<int> leftView(Node *root)
-{
+vector<int> leftView(Node *root){
    vector<int> ans;
-   solve(root,ans,0,0);
+   solve(root,0,ans);
    return ans;
 }
